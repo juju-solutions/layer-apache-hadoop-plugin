@@ -1,0 +1,20 @@
+name: apache-hadoop-plugin
+summary: Simplified connection point for Apache Hadoop platform
+maintainer: Cory Johns <cory.johns@canonical.com>
+description: >
+  Hadoop is a software platform that lets one easily write and
+  run applications that process vast amounts of data.
+
+  This charm provides a simplified connection point for client / workload
+  services, such as Apache Hive or Apache Pig, which require access to
+  Apache Hadoop.
+tags: ["applications", "bigdata", "hadoop", "apache"]
+subordinate: true
+requires:
+  client:
+    interface: hadoop-plugin
+    scope: container
+  hdfs:
+    interface: hdfs
+  yarn:
+    interface: yarn
