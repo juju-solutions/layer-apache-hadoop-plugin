@@ -13,7 +13,7 @@ def set_installed(client):
 @when('hadoop.installed', 'client.related')
 @when('hadoop.hdfs.configured', 'hdfs.ready')
 def set_hdfs_ready(hdfs, client):
-    client.set_hdfs_ready(hdfs.host(), hdfs.port())
+    client.set_hdfs_ready(hdfs.namenodes(), hdfs.port())
 
 
 @when('hadoop.installed', 'client.related')
@@ -25,7 +25,9 @@ def clear_hdfs_ready(client):
 @when('hadoop.installed', 'client.related')
 @when('hadoop.yarn.configured', 'yarn.ready')
 def set_yarn_ready(yarn, client):
-    client.set_yarn_ready(yarn.host(), yarn.port(), yarn.hs_http(), yarn.hs_ipc())
+    client.set_yarn_ready(
+        yarn.resourcemanagers(), yarn.port(),
+        yarn.hs_http(), yarn.hs_ipc())
 
 
 @when('hadoop.installed', 'client.related')
