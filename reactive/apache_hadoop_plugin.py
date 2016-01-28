@@ -4,45 +4,45 @@ from charmhelpers.core.hookenv import status_set
 from charms.hadoop import get_dist_config
 
 
-@when('hadoop.installed', 'client.related')
+@when('hadoop.installed', 'hadoop-plugin.related')
 def set_installed(client):
     dist = get_dist_config()
     client.set_installed(dist.hadoop_version)
 
 
-@when('hadoop.installed', 'client.related')
-@when('hadoop.hdfs.configured', 'hdfs.ready')
+@when('hadoop.installed', 'hadoop-plugin.related')
+@when('hadoop.hdfs.configured', 'namenode.ready')
 def set_hdfs_ready(hdfs, client):
     client.set_hdfs_ready(hdfs.namenodes(), hdfs.port())
 
 
-@when('hadoop.installed', 'client.related')
-@when_not('hdfs.ready')
+@when('hadoop.installed', 'hadoop-plugin.related')
+@when_not('namenode.ready')
 def clear_hdfs_ready(client):
     client.clear_hdfs_ready()
 
 
-@when('hadoop.installed', 'client.related')
-@when('hadoop.yarn.configured', 'yarn.ready')
+@when('hadoop.installed', 'hadoop-plugin.related')
+@when('hadoop.yarn.configured', 'resourcemanager.ready')
 def set_yarn_ready(yarn, client):
     client.set_yarn_ready(
         yarn.resourcemanagers(), yarn.port(),
         yarn.hs_http(), yarn.hs_ipc())
 
 
-@when('hadoop.installed', 'client.related')
-@when_not('yarn.ready')
+@when('hadoop.installed', 'hadoop-plugin.related')
+@when_not('resourcemanager.ready')
 def clear_yarn_ready(client):
     client.clear_yarn_ready()
 
 
 @when('hadoop.installed')
-@when_none('hdfs.spec.mismatch', 'yarn.spec.mismatch')
+@when_none('namenode.spec.mismatch', 'resourcemanager.spec.mismatch')
 def update_status():
-    hdfs_rel = is_state('hdfs.related')
-    yarn_rel = is_state('yarn.related')
-    hdfs_ready = is_state('hdfs.ready')
-    yarn_ready = is_state('yarn.ready')
+    hdfs_rel = is_state('namenode.related')
+    yarn_rel = is_state('resourcemanager.related')
+    hdfs_ready = is_state('namenode.ready')
+    yarn_ready = is_state('resourcemanager.ready')
 
     if not (hdfs_rel or yarn_rel):
         status_set('blocked', 'Waiting for relation to ResourceManager and/or NameNode')
