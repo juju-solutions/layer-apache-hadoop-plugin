@@ -11,10 +11,10 @@ description: >
 tags: ["applications", "bigdata", "hadoop", "apache"]
 subordinate: true
 requires:
-  client:
+  hadoop-plugin:
     interface: hadoop-plugin
     scope: container
-  hdfs:
-    interface: hdfs
-  yarn:
-    interface: yarn
+  namenode:
+    interface: dfs
+  resourcemanager:
+    interface: mapred
