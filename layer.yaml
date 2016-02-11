@@ -1,1 +1,4 @@
 includes: ['layer:hadoop-base', 'interface:hadoop-plugin', 'interface:dfs', 'interface:mapred']
+options:
+  basic:
+    use_venv: true
