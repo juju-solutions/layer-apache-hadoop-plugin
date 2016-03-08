@@ -45,7 +45,8 @@ def update_status():
     yarn_ready = is_state('resourcemanager.ready')
 
     if not (hdfs_rel or yarn_rel):
-        status_set('blocked', 'Waiting for relation to ResourceManager and/or NameNode')
+        status_set('blocked',
+                   'Waiting for relation to ResourceManager and/or NameNode')
     elif hdfs_rel and not hdfs_ready:
         status_set('waiting', 'Waiting for HDFS')
     elif yarn_rel and not yarn_ready:
