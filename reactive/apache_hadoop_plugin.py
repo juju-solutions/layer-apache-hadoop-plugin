@@ -39,8 +39,8 @@ def clear_yarn_ready(client):
 @when('hadoop.installed')
 @when_none('namenode.spec.mismatch', 'resourcemanager.spec.mismatch')
 def update_status():
-    hdfs_rel = is_state('namenode.related')
-    yarn_rel = is_state('resourcemanager.related')
+    hdfs_rel = is_state('namenode.joined')
+    yarn_rel = is_state('resourcemanager.joined')
     hdfs_ready = is_state('namenode.ready')
     yarn_ready = is_state('resourcemanager.ready')
 
