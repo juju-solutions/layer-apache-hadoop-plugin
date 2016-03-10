@@ -4,25 +4,25 @@ from charmhelpers.core.hookenv import status_set
 from charms.hadoop import get_dist_config
 
 
-@when('hadoop.installed', 'hadoop-plugin.related')
+@when('hadoop.installed', 'hadoop-plugin.joined')
 def set_installed(client):
     dist = get_dist_config()
     client.set_installed(dist.hadoop_version)
 
 
-@when('hadoop.installed', 'hadoop-plugin.related')
+@when('hadoop.installed', 'hadoop-plugin.joined')
 @when('hadoop.hdfs.configured', 'namenode.ready')
 def set_hdfs_ready(hdfs, client):
     client.set_hdfs_ready(hdfs.namenodes(), hdfs.port())
 
 
-@when('hadoop.installed', 'hadoop-plugin.related')
+@when('hadoop.installed', 'hadoop-plugin.joined')
 @when_not('namenode.ready')
 def clear_hdfs_ready(client):
     client.clear_hdfs_ready()
 
 
-@when('hadoop.installed', 'hadoop-plugin.related')
+@when('hadoop.installed', 'hadoop-plugin.joined')
 @when('hadoop.yarn.configured', 'resourcemanager.ready')
 def set_yarn_ready(yarn, client):
     client.set_yarn_ready(
@@ -30,7 +30,7 @@ def set_yarn_ready(yarn, client):
         yarn.hs_http(), yarn.hs_ipc())
 
 
-@when('hadoop.installed', 'hadoop-plugin.related')
+@when('hadoop.installed', 'hadoop-plugin.joined')
 @when_not('resourcemanager.ready')
 def clear_yarn_ready(client):
     client.clear_yarn_ready()
