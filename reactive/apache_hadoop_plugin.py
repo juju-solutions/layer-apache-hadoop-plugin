@@ -1,7 +1,7 @@
 # pylint: disable=unused-argument
 from charms.reactive import when, when_not, when_none, is_state
 from charmhelpers.core.hookenv import status_set
-from charms.hadoop import get_dist_config
+from charms.layer.hadoop_base import get_dist_config
 
 
 @when('hadoop.installed', 'hadoop-plugin.joined')
