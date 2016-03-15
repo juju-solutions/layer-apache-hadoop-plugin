@@ -1,3 +1,4 @@
+repo: git@github.com:juju-solutions/layer-apache-hadoop-plugin.git
 includes: ['layer:hadoop-base', 'interface:hadoop-plugin', 'interface:dfs', 'interface:mapred']
 options:
   basic:
