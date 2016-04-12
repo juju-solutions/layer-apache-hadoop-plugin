@@ -1,7 +1,7 @@
 # pylint: disable=unused-argument
 from charms.reactive import when, when_not, when_none, is_state
 from charmhelpers.core.hookenv import status_set
-from charms.layer.hadoop_base import get_dist_config
+from charms.layer.hadoop_base import get_dist_config, reconfigure_hdfs
 
 
 @when('hadoop.installed', 'hadoop-plugin.joined')
@@ -14,6 +14,13 @@ def set_installed(client):
 @when('hadoop.hdfs.configured', 'namenode.ready')
 def set_hdfs_ready(hdfs, client):
     client.set_hdfs_ready(hdfs.namenodes(), hdfs.port())
+
+
+@when('hadoop.installed', 'hadoop-plugin.joined')
+@when('hadoop.hdfs.configured', 'namenode.ready')
+@when('config.changed')
+def plugin_config_changed(hdfs, client):
+    reconfigure_hdfs()
 
 
 @when('hadoop.installed', 'hadoop-plugin.joined')
