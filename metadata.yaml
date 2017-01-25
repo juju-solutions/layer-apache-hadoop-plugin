@@ -18,3 +18,4 @@ requires:
     interface: dfs
   resourcemanager:
     interface: mapred
+series: ['xenial', 'trusty']
